@@ -10,18 +10,49 @@ let TreeStyle = (props) => {
   let reftree = useRef();
   let [expandKeys,setExpandKeys] = useState( [] );
   let [highLightKeys,setHighLightKeys] = useState( [] );
+  
+  const treeDatacs = [
+    {
+      title: 'parent 1',
+      key: '0-0',
+      children: [
+        {
+          title: 'parent 1-0',
+          key: '0-0-0',
+          disabled: true,
+          children: [
+            {
+              title: 'leaf',
+              key: '0-0-0-0',
+              disableCheckbox: true,
+            },
+            {
+              title: 'leaf',
+              key: '0-0-0-1',
+            },
+          ],
+        },
+        {
+          title: 'parent 1-1',
+          key: '0-0-1',
+          children: [{ title: <span style={{ color: '#1890ff' }}>sss</span>, key: '0-0-1-0' }],
+        },
+      ],
+    },
+  ];
+
   useEffect( e => {
     window.reftree = reftree
+    alert('请在控制台查看tree对象')
+    console.log(reftree.current)
   },[] )
 
   useEffect ( () => {
     let tp = [];
-
     if(searchValue!=''){
       treeData.map(v => {
         tp = Utils.getSearchKeyByName(v,searchValue)
       })
-      console.log(tp)
       let parentKey = [];
       tp.map( v => {
         let key = Utils.getParentKey(v,treeData);
@@ -29,12 +60,7 @@ let TreeStyle = (props) => {
           parentKey.push(key)
         }
       })
-
-      // parentKey.concat(tp);
-      //  console.log(parentKey)
       setExpandKeys([...parentKey]);
-
-      // setExpandKeys([...tp]);
       setHighLightKeys([...tp]);
     }
   },[searchValue]);
@@ -43,23 +69,6 @@ let TreeStyle = (props) => {
 
     let tp = [...exp];
     setExpandKeys(tp)
-    // exp.map(v => {
-    //   if(tp.indexOf(v)>-1){
-    //     tp.push(v)
-    //   }
-    // })
-    // let key = info.node.props.eventKey;
-    //
-    // if(info.expanded){
-    //    tp.push(key)
-    // }
-    // else{
-    //   console.log(key)
-    //   let index =tp.indexOf(key)
-    //   console.log(index)
-    //   tp.splice( index,1)
-    // }
-    // setExpandKeys(tp)
 
   }
   const onSelect = (selectedKeys, info) => {
@@ -157,10 +166,9 @@ let TreeStyle = (props) => {
         selectedKeys={highLightKeys}
         checkedKeys={selectedKeys}
         expandedKeys={expandKeys}
-        treeData={treeData}
+        treeData={treeDatacs}
         autoExpandParent
         multiple
-        // treeData={searchValue==''?treeData:loop(treeData)}
       />
     </div>
 
