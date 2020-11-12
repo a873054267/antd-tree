@@ -1,0 +1,26 @@
+
+{
+"extraBabelPlugins": [
+    ["import", {
+    "libraryName": "antd",
+    "libraryDirectory": "es",
+    "style": true
+    }]
+  ],
+  "proxy":{
+      "/treeInfo": {
+      "target": "http://bos3d-alpha.bimwinner.com/",
+      "changeOrigin": true,
+      "pathRewrite":{
+      "^/treeInfo":""
+      }
+     },
+      "/modelkey": {
+           "target": "http://building-bos3d.rickricks.com/",
+           "changeOrigin": true,
+           "pathRewrite":{
+           "^/modelkey":""
+           }
+          }
+   }
+}
